@@ -1,5 +1,7 @@
 import React from 'react';
 import httpGet from '../httpGet';
+import ProgressBar from './Progress-bar';
+import ResourcesBar from './Resources-bar';
 
 export default class extends React.Component {
 
@@ -17,6 +19,7 @@ export default class extends React.Component {
       golden_coins: 0,
       silver_coins: 0,
       time: 0,
+      loading: true,
     };
   }
   componentDidMount() {
@@ -34,6 +37,7 @@ export default class extends React.Component {
       .then((res) => {
         const data = JSON.parse(res);
         this.setState({ ...data });
+        this.setState({ loading: false });
       });
   }
   tick() {
@@ -48,17 +52,30 @@ export default class extends React.Component {
     }
   }
   render() {
+    if (this.state.loading) {
+      return (<div>Loading...</div>);
+    }
     return (
       <div>
+        <ResourcesBar silver={this.state.silver_coins} gold={this.state.golden_coins} />
         <div>
-          {this.state.lvl}lvl {this.state.silver_coins}sc {this.state.golden_coins}gc
+          {this.state.lvl}lvl
+          {this.state.silver_coins}<img alt="silver coin standard currency" src="images/silver_coin.png" height="19" />
+          {this.state.golden_coins}<img alt="golden coin exclusive currency" src="images/golden_coin.png" height="19" />
         </div>
         <div>
-          ATK:{this.state.atk} DEF:{this.state.def} EXP:{this.state.exp}/{this.state.maxexp}
+          ATK:{this.state.atk} DEF:{this.state.def}
         </div>
         <div>
-          HP:{this.state.hp}
-          ENERGY:{this.state.energy}/{this.state.maxenergy}({this.state.time})
+          <ProgressBar type="health" progress={100}>
+            HEALTH:{this.state.hp}
+          </ProgressBar>
+          <ProgressBar type="energy" progress={100}>
+            ENERGY:{this.state.energy}/{this.state.maxenergy}({this.state.time})
+          </ProgressBar>
+          <ProgressBar type="exp" progress={100}>
+            EXP:{this.state.exp}/{this.state.maxexp}
+          </ProgressBar>
         </div>
       </div>
     );
