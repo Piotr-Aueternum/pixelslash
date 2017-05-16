@@ -36,7 +36,18 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+<<<<<<< HEAD
     "node-sass": "^4.5.2",
+=======
+    "express": "^4.15.2",
+    "good": "^7.1.0",
+    "good-console": "^6.4.0",
+    "good-squeeze": "^5.0.2",
+    "hapi": "^16.1.1",
+    "http": "0.0.0",
+    "inert": "^4.2.0",
+    "mysql": "^2.13.0",
+>>>>>>> 2d827b066dbcaa6064d5d374c05efcc70175a136
     "prop-types": "^15.5.8",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -44,7 +55,11 @@
     "react-router": "3.x",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
+<<<<<<< HEAD
     "sass-loader": "^6.0.5",
+=======
+    "socket.io": "^2.0.1",
+>>>>>>> 2d827b066dbcaa6064d5d374c05efcc70175a136
     "style-loader": "^0.16.1",
     "webpack": "^2.4.1"
   }
