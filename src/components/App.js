@@ -60,8 +60,6 @@ export default class extends React.Component {
         <ResourcesBar silver={this.state.silver_coins} gold={this.state.golden_coins} />
         <div>
           {this.state.lvl}lvl
-          {this.state.silver_coins}<img alt="silver coin standard currency" src="images/silver_coin.png" height="19" />
-          {this.state.golden_coins}<img alt="golden coin exclusive currency" src="images/golden_coin.png" height="19" />
         </div>
         <div>
           ATK:{this.state.atk} DEF:{this.state.def}
