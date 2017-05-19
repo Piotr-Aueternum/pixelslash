@@ -3,28 +3,27 @@ import PropTypes from 'prop-types';
 import Resources from './Resources';
 import styles from './Resources-bar.scss';
 
-export default function ResourcesBar(props) {
+const ResourcesBar = ({ resources }) => {
+  if (resources && resources.length === 0) {
+    return (<div>No resources</div>);
+  }
   return (
     <div className={styles.ResourcesBar}>
-      <Resources
-        alt="silver coin standard currency"
-        src="images/silver_coin.png"
-      >
-        {props.silver}
-      </Resources>
-      <Resources
-        className={styles.Resources}
-        alt="golden coin exclusive currency"
-        src="images/golden_coin.png"
-      >
-        {props.gold}
-      </Resources>
+      {resources.map((item, key) => (
+        <Resources
+          key={key}
+          alt={item.alt}
+          src={item.src}
+          value={item.value}
+          size={item.size}
+        />
+      ))}
     </div>
   );
-}
-
+};
 
 ResourcesBar.propTypes = {
-  silver: PropTypes.node.isRequired,
-  gold: PropTypes.node.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
+export default ResourcesBar;

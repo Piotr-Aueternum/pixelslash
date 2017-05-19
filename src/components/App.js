@@ -1,7 +1,7 @@
 import React from 'react';
 import httpGet from '../httpGet';
 import ProgressBar from './Progress-bar';
-import ResourcesBar from './Resources-bar';
+import ResourcesBar from '../containers/Resources-bar';
 
 export default class extends React.Component {
 
@@ -57,7 +57,7 @@ export default class extends React.Component {
     }
     return (
       <div>
-        <ResourcesBar silver={this.state.silver_coins} gold={this.state.golden_coins} />
+        <ResourcesBar />
         <div>
           {this.state.lvl}lvl
         </div>

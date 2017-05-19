@@ -73,7 +73,6 @@
 ?>
 
 <div id="player">
-	<div id="new-player"></div>
 	<div class="flex">
 		<p style="color: white"><?php echo $user_login ?></p>
 	</div>

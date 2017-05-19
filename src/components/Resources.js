@@ -2,23 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Resources.scss';
 
-export default function Resource(props) {
-  return (
-    <div className={styles.Resources}>
-      <div>{props.children}</div>
-      <img alt={props.alt} src={props.src} className={`${styles.icon} ${styles[`icon_${props.size}`]}`} />
-    </div>
-  );
-}
+const Resource = ({ value, alt, src, size }) => (
+  <div className={styles.Resources}>
+    <div>{value}</div>
+    <img alt={alt} src={src} className={`${styles.icon} ${styles[`icon_${size}`]}`} />
+  </div>
+);
 
 Resource.defaultProps = {
   size: 'normal',
   alt: '',
-  children: '',
+  value: 0,
 };
 Resource.propTypes = {
-  children: PropTypes.node,
+  value: PropTypes.number,
   alt: PropTypes.string,
   src: PropTypes.string.isRequired,
   size: PropTypes.string,
 };
+
+export default Resource;

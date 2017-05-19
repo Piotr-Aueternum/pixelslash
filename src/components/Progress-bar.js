@@ -2,22 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Progress-bar.scss';
 
-export default function Progressbar(props) {
-  if (props.progress < 0 || props.progress > 100) {
-    throw Error(`Invalid progress value(${props.progress}) it should be from 0 to 100!`);
+const Progressbar = ({ progress, type, children }) => {
+  if (progress < 0 || progress > 100) {
+    throw Error(`Invalid progress value(${progress}) it should be from 0 to 100!`);
   }
   return (
     <div className={styles.Progressbar}>
-      {props.children}
+      {children}
       <div className={styles.bar}>
         <div
-          className={`${styles.fill} ${styles[`fill_${props.type}`]}`}
-          style={{ width: `${props.progress}%` }}
+          className={`${styles.fill} ${styles[`fill_${type}`]}`}
+          style={{ width: `${progress}%` }}
         />
       </div>
     </div>
   );
-}
+};
 
 
 Progressbar.propTypes = {
@@ -25,3 +25,5 @@ Progressbar.propTypes = {
   children: PropTypes.node.isRequired,
   progress: PropTypes.number.isRequired,
 };
+
+export default Progressbar;

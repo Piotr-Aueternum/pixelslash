@@ -40,6 +40,7 @@
 	<a href="index.php"><img src="images/logo.png" style="width: 100%"></a>
 
 	<img src="images/back_top.png" height="60" style="width: 100%"/>
+	<div id="new-player" data-logged='<?php echo $user_logged ? 'true' : 'false'; ?>'></div>
 	<div id="game">
 	<?php
 		if($user_logged){	
