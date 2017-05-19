@@ -28294,7 +28294,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ResourcesBar = function ResourcesBar(_ref) {
   var resources = _ref.resources;
 
-  if (resources && resources.length === 0) {
+  if (!(resources && resources.length)) {
     return _react2.default.createElement(
       'div',
       null,

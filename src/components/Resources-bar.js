@@ -4,7 +4,7 @@ import Resources from './Resources';
 import styles from './Resources-bar.scss';
 
 const ResourcesBar = ({ resources }) => {
-  if (resources && resources.length === 0) {
+  if (!(resources && resources.length)) {
     return (<div>No resources</div>);
   }
   return (
