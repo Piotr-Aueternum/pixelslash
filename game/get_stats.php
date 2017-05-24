@@ -21,7 +21,6 @@
 
 		$time = time();
 		$user = $_SESSION['login'];
-
 		for($n=1;$n<30;$n++){
 			if($time > $user_data['last_time_energy_point_used']+60*$energy_renew_time_in_minutes*$n && $user_data['last_time_energy_point_used'] != 0){ // 1 ENERGY EVERY $energy_renew_time_in_minutes MINUTES
 				if($user_data['energy']<$user_data['maxenergy']){
@@ -58,19 +57,19 @@
 			$eq_hp += $item_data['hp'];
 		}
 
-		$user_lvl = $user_data['lvl'];
+		$user_lvl = intval($user_data['lvl']);
 
 		$user_atk = ($user_data['atk']+$eq_atk);
 		$user_def = ($user_data['def']+$eq_def);
 		$user_hp = ($user_data['hp']+$eq_hp);
-		$user_exp = $user_data['exp'];
+		$user_exp = intval($user_data['exp']);
 		$user_test = $user_data['lvl'];
 		$user_maxexp = $max_exp;
-		$user_energy = $user_data['energy'];
-		$user_maxenergy = $user_data['maxenergy'];
+		$user_energy = intval($user_data['energy']);
+		$user_maxenergy = intval($user_data['maxenergy']);
 
-		$user_silver_coins = $user_data['silver_coins'];
-		$user_golden_coins = $user_data['golden_coins'];
+		$user_silver_coins = intval($user_data['silver_coins']);
+		$user_golden_coins = intval($user_data['golden_coins']);
 		$arr = array('lvl' => $user_lvl, 'atk' => $user_atk, 'def' => $user_def, 'hp' => $user_hp, 'exp' => $user_exp,
 		 'maxexp' => $user_maxexp, 'energy' => $user_energy,'maxenergy' => $user_maxenergy, 'silver_coins' => $user_silver_coins, 'golden_coins' => $user_golden_coins);
 		return json_encode($arr);
