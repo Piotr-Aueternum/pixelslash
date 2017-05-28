@@ -12,13 +12,15 @@
 	if (mysqli_num_rows($query) > 0){
 		$status = 'error';
 		$message = 'Login with this name exists.';
-  } else {
+	} else {
 		if(strlen($password) > 4) {
 			if($password === $password_confirm) {
 				$password = md5($password);
 				mysqli_query($a,"insert into users (user,password) values ('$user','$password')");
-				$_SESSION["user_logged"] = true;
+				
+				$_SESSION['user_logged'] = true;
 				$_SESSION['login'] = $_POST['user'];
+
 				$status = 'success';
 				$message = 'Account created correctly.';
 			} else {
