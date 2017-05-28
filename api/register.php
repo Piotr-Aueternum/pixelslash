@@ -3,28 +3,32 @@
 	include("../config.php");
 	$user = mysqli_real_escape_string($a, $_GET['user']);
 	$password = mysqli_real_escape_string($a, $_GET['password']);
-
-	if($password != $_GET['password_2']){
-		echo '{"registered":"error_badPasswords"}';
-		exit();
-	}
-	if(strlen($password) <= '4') {
-        echo '{"registered":"error_tooShortPassword"}';
-		exit();
-    }
-
-	$password = md5($password);
+	$password_confirm = $_GET['password_2'];
+	$status = 'error';
+	$message = 'No data was received. Please ensure you fill all inputs correctly.';
 
 	$query = mysqli_query($a, "select * from users where user='$user'");
-	
-	if(mysqli_num_rows($query) > 0){
-		echo '{"registered":"error_nameAlreadyUsed"}';
-		exit();
-	}else{
-		mysqli_query($a,"insert into users (user,password) values ('$user','$password')");
-		$_SESSION["user_logged"] = true;
-		$_SESSION['login'] = $_POST['user'];
-		echo '{"registered":true}';
-		// foward to logged_user_page.php
+
+	if (mysqli_num_rows($query) > 0){
+		$status = 'error';
+		$message = 'Login with this name exists.';
+  } else {
+		if(strlen($password) > 4) {
+			if($password === $password_confirm) {
+				$password = md5($password);
+				mysqli_query($a,"insert into users (user,password) values ('$user','$password')");
+				$_SESSION["user_logged"] = true;
+				$_SESSION['login'] = $_POST['user'];
+				$status = 'success';
+				$message = 'Account created correctly.';
+			} else {
+				$status = 'error';
+				$message = 'Passwords do not match.';
+			}
+		} else {
+			$status = 'error';
+			$message = 'Password length('.strlen($password).') is too short, it should be greater than 4.';
+		}
 	}
+	echo json_encode(array('status' => $status, 'message' => $message));
 ?>
