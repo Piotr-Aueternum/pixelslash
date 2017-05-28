@@ -1,3 +1,5 @@
+import { FETCH_STATS } from '../constans/actions';
+
 export default function data(state = {
   lvl: 0,
   exp: 0,
@@ -11,7 +13,7 @@ export default function data(state = {
   silver_coins: 0,
 }, action) {
   switch (action.type) {
-    case 'FETCH_STATS':
+    case FETCH_STATS:
       return { ...state, ...action.payload };
     default:
       return state;

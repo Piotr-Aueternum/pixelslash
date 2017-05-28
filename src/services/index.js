@@ -33,5 +33,5 @@ export function userLogin(query) {
     url,
     pathname: login,
     query,
-  })
+  });
 }

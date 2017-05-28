@@ -1,10 +1,11 @@
 import { put, all, call, takeEvery } from 'redux-saga/effects';
 import { fetchStats, userRegister } from './services';
+import * as c from './constans/actions';
 
 export function* fetchStatsSaga() {
   const payload = yield call(fetchStats);
   yield put({
-    type: 'FETCH_STATS',
+    type: c.FETCH_STATS,
     payload,
   });
 }
@@ -12,17 +13,17 @@ export function* fetchStatsSaga() {
 export function* userRegisterSaga(action) {
   const payload = yield call(userRegister, action.payload);
   yield put({
-    type: 'USER_REGISTER',
+    type: c.USER_REGISTER,
     payload,
   });
 }
 
 function* fetchStatsWatch(action) {
-  yield takeEvery('FETCH_ASYNC_STATS', fetchStatsSaga, action);
+  yield takeEvery(c.FETCH_ASYNC_STATS, fetchStatsSaga, action);
 }
 
 function* userRegisterWatch() {
-  yield takeEvery('USER_ASYNC_REGISTER', userRegisterSaga);
+  yield takeEvery(c.USER_ASYNC_REGISTER, userRegisterSaga);
 }
 
 export default function* rootSaga() {

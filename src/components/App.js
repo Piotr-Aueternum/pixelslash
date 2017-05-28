@@ -1,12 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ResourcesBar from '../containers/Resources-bar';
 import Stats from '../containers/Stats';
-import Form from './Form';
+import RegisterForm from '../containers/Register-form';
 
-export default () => (
+const App = ({ children }) => (
   <div>
-    <Form />
+    {children}
+    <RegisterForm>
+      <input />
+      <button>Register</button>
+    </RegisterForm>
     <ResourcesBar />
     <Stats />
   </div>
 );
+
+App.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default App;
