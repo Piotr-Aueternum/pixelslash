@@ -1,37 +1,32 @@
-import { url, getStats, attack, register, login } from '../constans/pixelslash';
+import * as p from '../constans/pixelslash';
 import Api from '../api_client';
 
-export function fetchStats() {
+const url = p.url;
+export function getStats() {
   return Api.init({
     url,
-    pathname: getStats,
+    pathname: p.getStats,
   });
 }
 
 export function requestAttack() {
   return Api.init({
     url,
-    pathname: attack,
+    pathname: p.attack,
   });
 }
-/**
- * Send request to register.
- * @export
- * @param {Array<object>} query
- * @returns {object} JSON
- */
-export function userRegister(query) {
+
+export function postUserData(query) {
   return Api.init({
     url,
-    pathname: register,
+    pathname: p.register,
     query,
   });
 }
 
-export function userLogin(query) {
+export function getUserData() {
   return Api.init({
     url,
-    pathname: login,
-    query,
+    pathname: p.login,
   });
 }

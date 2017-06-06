@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
 import Stats from '../components/Stats';
-import { FETCH_ASYNC_STATS } from '../constans/actions';
+import { fetchAsyncStats } from '../actions/stats';
 
 
 const mapStateToProps = state => ({ ...state.stats });
 const mapDispatchToProps = dispatch => ({ onMount: () => {
-  dispatch({
-    type: FETCH_ASYNC_STATS,
-  });
+  dispatch(fetchAsyncStats());
 } });
 export default connect(mapStateToProps, mapDispatchToProps)(Stats);

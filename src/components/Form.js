@@ -1,34 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import Input from './Input';
 
-class Form extends React.Component {
-  static propTypes = {
-    onFormSubmit: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-  }
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      user: '',
-      password: '',
-      password_2: '',
-    };
-  }
-  setData(e, name) {
-    this.setState({ [name]: e.target.value });
-  }
-  handleSubmit(e) {
-    this.props.onFormSubmit(e);
-  }
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        {this.props.children}
-      </form>
-    );
-  }
-}
+const Form = ({ onFormSubmit, onInputChange, data }) => (
+  <form onSubmit={e => onFormSubmit(e)}>
+    {data.map((input, key) => (
+      <Input
+        onChange={(e) => {
+          onInputChange(e);
+        }}
+        key={key}
+        {...input}
+      />
+    ))}
+    <button>Submit</button>
+  </form>
+);
+Form.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
-export default connect()(Form);
+export default Form;
