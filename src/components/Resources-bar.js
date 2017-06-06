@@ -12,10 +12,7 @@ const ResourcesBar = ({ resources }) => {
       {resources.map((item, key) => (
         <Resources
           key={key}
-          alt={item.alt}
-          src={item.src}
-          value={item.value}
-          size={item.size}
+          {...item}
         />
       ))}
     </div>

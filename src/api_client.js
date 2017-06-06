@@ -1,5 +1,5 @@
 export default {
-  init: ({ url, pathname = '', query = [], headers, method = 'get' }) => new Promise((resolve) => {
+  init: ({ url, pathname = '', query = [], headers, method = 'get', credentials = 'same-origin', mode = 'no-cors' }) => new Promise((resolve) => {
     const fetchUrl = new window.URL(url);
     fetchUrl.pathname = pathname;
     const search = [];
@@ -9,7 +9,8 @@ export default {
     fetchUrl.search = search.join('&');
     fetch(fetchUrl, {
       method,
-      credentials: 'same-origin',
+      credentials,
+      mode,
       headers,
     })
     .then(response => response.json())

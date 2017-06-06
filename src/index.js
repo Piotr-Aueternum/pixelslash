@@ -9,9 +9,9 @@ import reducer from './reducers/index';
 import mySaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = process.env.DEVELOPMENT
-  ? applyMiddleware(sagaMiddleware, logger)
-  : applyMiddleware(sagaMiddleware);
+const middleware = process.env.NODE_ENV === 'production'
+  ? applyMiddleware(sagaMiddleware)
+  : applyMiddleware(sagaMiddleware, logger);
 const store = createStore(
   reducer,
   middleware,

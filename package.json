@@ -4,7 +4,7 @@
   "description": "Pixelslash is a tiny via www game.",
   "main": "src/server.js",
   "scripts": {
-    "dev": "webpack --config webpack.config.js --watch",
+    "dev": "webpack-dev-server --hot --config webpack.config.js",
     "production": "webpack --config webpack.config.production.js"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "babel-preset-react": "6.x",
     "babel-preset-stage-0": "6.x",
     "babel-regenerator-runtime": "6.x",
+    "babili-webpack-plugin": "^0.1.1",
     "css-loader": "0.28.0",
     "eslint": "3.x",
     "eslint-config-airbnb": "14.x",
@@ -45,6 +46,7 @@
     "react-dom": "15.x",
     "react-redux": "5.x",
     "react-router": "3.x",
+    "react-router-dom": "4.x",
     "redux": "3.x",
     "redux-logger": "3.x",
     "redux-saga": "0.15.3",
@@ -52,5 +54,8 @@
     "socket.io": "2.x",
     "style-loader": "0.16.1",
     "webpack": "2.x"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.4.5"
   }
 }

@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const BabiliPlugin = require('babili-webpack-plugin');
 
 module.exports = {
   entry: ['babel-polyfill', path.join(__dirname, 'src', 'index.js')],
@@ -38,10 +39,7 @@ module.exports = {
         NODE_ENV: '"production"',
       },
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      warnings: false,
-      screw_ie8: true,
-    }),
+    new BabiliPlugin(),
   ],
 };
 
