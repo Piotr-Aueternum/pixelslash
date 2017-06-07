@@ -27,6 +27,7 @@ export default class extends React.Component {
         name={this.props.name}
         type={this.props.type}
         value={this.state.value}
+        {...this.props}
       />
     );
   }

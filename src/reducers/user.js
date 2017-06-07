@@ -1,11 +1,11 @@
 import * as c from '../constans/actions';
 
 const inputs = [{
-  name: 'user', value: '',
+  name: 'user', value: '', required: 'required',
 }, {
-  name: 'password', value: '', type: 'password',
+  name: 'password', value: '', type: 'password', required: 'required',
 }, {
-  name: 'password_2', value: '', type: 'password',
+  name: 'password_2', value: '', type: 'password', required: 'required',
 }];
 /**
  * Returns new array with changed input value, based on inputs name.
