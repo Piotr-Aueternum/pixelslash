@@ -1,16 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import RegisterForm from '../containers/Register-form';
+import NotFound from './Not-found';
 
-const App = ({ children }) => (
-  <div>
-    {children}
-    <RegisterForm />
-  </div>
+export default () => (
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" component={RegisterForm} />
+      <Route component={NotFound} />
+    </Switch>
+  </BrowserRouter>
 );
-
-App.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default App;

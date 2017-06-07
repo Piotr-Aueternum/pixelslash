@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import AppRoutes from './components/App-routes';
+import App from './components/App';
 import reducer from './reducers/index';
 import mySaga from './sagas';
 
@@ -19,5 +19,5 @@ const store = createStore(
 sagaMiddleware.run(mySaga);
 
 window.addEventListener('load', () => {
-  ReactDOM.render(<Provider store={store}><AppRoutes /></Provider>, document.getElementById('new-player'));
+  ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('new-player'));
 });
