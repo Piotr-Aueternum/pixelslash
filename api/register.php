@@ -8,12 +8,12 @@
 	$message = 'No data was received. Please ensure you fill all inputs correctly.';
 
 	$query = mysqli_query($a, "select * from users where user='$user'");
-	if (strlen($user) > 2) {
+	if (strlen($user) >= 3) {
 		if (mysqli_num_rows($query) > 0){
 			$status = 'error';
 			$message = 'Login with this name exists.';
 		} else {
-			if(strlen($password) > 4) {
+			if(strlen($password) >= 4) {
 				if($password === $password_confirm) {
 					$password = md5($password);
 					mysqli_query($a,"insert into users (user,password) values ('$user','$password')");
