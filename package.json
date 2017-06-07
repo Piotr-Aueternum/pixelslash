@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/karolsw2/pixelslash#readme",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel": "6.x",
     "babel-cli": "6.x",
     "babel-core": "6.x",

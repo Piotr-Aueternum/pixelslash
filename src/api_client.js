@@ -1,5 +1,7 @@
+import axios from 'axios';
+
 export default {
-  init: ({ url, pathname = '', query = [], headers, method = 'get', credentials = 'same-origin', mode = 'no-cors' }) => new Promise((resolve) => {
+  init: ({ url, pathname = '', headers, query = [], method = 'get', credentials = 'same-origin', mode = 'no-cors' }) => new Promise((resolve) => {
     const fetchUrl = new window.URL(url);
     fetchUrl.pathname = pathname;
     const search = [];
@@ -7,13 +9,12 @@ export default {
       search.push(`${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`);
     });
     fetchUrl.search = search.join('&');
-    fetch(fetchUrl, {
+    axios.get(fetchUrl, {
       method,
       credentials,
       mode,
       headers,
     })
-    .then(response => response.json())
-    .then(data => resolve(data));
+    .then(result => resolve(result.data));
   }),
 };
