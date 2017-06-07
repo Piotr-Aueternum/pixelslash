@@ -1,7 +1,7 @@
 import * as c from '../constans/actions';
 
 const inputs = [{
-  name: 'login', value: '',
+  name: 'user', value: '',
 }, {
   name: 'password', value: '', type: 'password',
 }, {

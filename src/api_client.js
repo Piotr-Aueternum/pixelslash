@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default {
-  init: ({ url, pathname = '', headers, query = [], method = 'get', credentials = 'same-origin', mode = 'no-cors' }) => new Promise((resolve) => {
+  init: ({ url, pathname = '', headers, query = {}, method = 'get', credentials = 'same-origin', mode = 'no-cors' }) => new Promise((resolve) => {
     const fetchUrl = new window.URL(url);
     fetchUrl.pathname = pathname;
     const search = [];

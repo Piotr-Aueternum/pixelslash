@@ -8,29 +8,33 @@
 	$message = 'No data was received. Please ensure you fill all inputs correctly.';
 
 	$query = mysqli_query($a, "select * from users where user='$user'");
+	if (strlen($user) > 2) {
+		if (mysqli_num_rows($query) > 0){
+			$status = 'error';
+			$message = 'Login with this name exists.';
+		} else {
+			if(strlen($password) > 4) {
+				if($password === $password_confirm) {
+					$password = md5($password);
+					mysqli_query($a,"insert into users (user,password) values ('$user','$password')");
+					
+					$_SESSION['user_logged'] = true;
+					$_SESSION['login'] = $_POST['user'];
 
-	if (mysqli_num_rows($query) > 0){
-		$status = 'error';
-		$message = 'Login with this name exists.';
-	} else {
-		if(strlen($password) > 4) {
-			if($password === $password_confirm) {
-				$password = md5($password);
-				mysqli_query($a,"insert into users (user,password) values ('$user','$password')");
-				
-				$_SESSION['user_logged'] = true;
-				$_SESSION['login'] = $_POST['user'];
-
-				$status = 'success';
-				$message = 'Account created correctly.';
+					$status = 'success';
+					$message = 'Account created correctly.';
+				} else {
+					$status = 'error';
+					$message = 'Passwords do not match.';
+				}
 			} else {
 				$status = 'error';
-				$message = 'Passwords do not match.';
+				$message = 'Password length('.strlen($password).') is too short, it should be greater than 4.';
 			}
-		} else {
-			$status = 'error';
-			$message = 'Password length('.strlen($password).') is too short, it should be greater than 4.';
 		}
+	} else {
+		$status = 'error';
+		$message = 'Login name length('.strlen($user).') is too short, it should be greater than 2.';
 	}
 	echo json_encode(array('status' => $status, 'message' => $message));
 ?>

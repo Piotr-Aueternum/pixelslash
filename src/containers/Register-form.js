@@ -4,9 +4,13 @@ import Form from '../components/Form';
 
 const mapStateToProps = state => ({ data: state.user.inputs });
 const mapDispatchToProps = dispatch => ({
-  onFormSubmit: (e) => {
+  onFormSubmit: (e, data) => {
     e.preventDefault();
-    dispatch(userAsyncRegister());
+    const query = {};
+    data.forEach((item) => {
+      Object.assign(query, { [item.name]: item.value });
+    });
+    dispatch(userAsyncRegister(query));
   },
   onInputChange: (e) => {
     const { value, name } = e.target;

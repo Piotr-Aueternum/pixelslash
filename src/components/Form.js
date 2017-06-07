@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 
 const Form = ({ onFormSubmit, onInputChange, data }) => (
-  <form onSubmit={e => onFormSubmit(e)}>
+  <form onSubmit={e => onFormSubmit(e, data)}>
     {data.map((input, key) => (
       <Input
         onChange={(e) => {
