@@ -22,3 +22,16 @@ export const updateUserData = payload => ({
 export const signRequest = () => ({
   type: c.SIGN_REQUEST,
 });
+
+export const logout = payload => ({
+  type: c.LOGOUT,
+  payload,
+});
+
+export const asyncLogout = () => ({
+  type: c.ASYNC_LOGOUT,
+});
+
+export const logged = () => ({
+  type: c.LOGGED,
+});

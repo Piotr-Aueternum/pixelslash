@@ -6,7 +6,8 @@
 	$password_confirm = $_GET['password_2'];
 	$status = 'error';
 	$message = 'No data was received. Please ensure you fill all inputs correctly.';
-
+	$passlength = strlen($password);
+	$userlength = strlen($user);
 	$query = mysqli_query($a, "select * from users where user='$user'");
 	if (strlen($user) >= 3) {
 		if (mysqli_num_rows($query) > 0){
@@ -29,12 +30,12 @@
 				}
 			} else {
 				$status = 'error';
-				$message = 'Password length('.strlen($password).') is too short, it should be greater than 4.';
+				$message = "Password length($passlength) is too short, it should be greater than 4.";
 			}
 		}
 	} else {
 		$status = 'error';
-		$message = 'Login name length('.strlen($user).') is too short, it should be greater than 2.';
+		$message = "Login name length($userlength) is too short, it should be greater than 2.";
 	}
 	echo json_encode(array('status' => $status, 'message' => $message));
 ?>

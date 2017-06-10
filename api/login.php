@@ -18,7 +18,7 @@
 			$_SESSION['user_logged'] = true;
 			$_SESSION['login'] = $_POST['user'];
 			$_SESSION['token'] = $token;
-
+	
 			$status = 'success';
 			$message = 'Logged successful.';
 		} else {
@@ -27,7 +27,7 @@
 		}
 	} else {
 		$status = 'error';
-		$message = 'User with login '.$user.' does not exists.';
+		$message = "User with login $user does not exists.";
 	}
 	echo json_encode(array('status' => $status, 'message' => $message));
 ?>

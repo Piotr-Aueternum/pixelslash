@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
@@ -19,5 +20,10 @@ const store = createStore(
 sagaMiddleware.run(mySaga);
 
 window.addEventListener('load', () => {
-  ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('new-player'));
+  ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>, document.getElementById('app'));
 });

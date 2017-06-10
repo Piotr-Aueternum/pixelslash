@@ -38,3 +38,18 @@ export function getUserData() {
     pathname: p.login,
   });
 }
+
+export function logout() {
+  return Api.init({
+    url,
+    pathname: p.logout,
+  });
+}
+
+export function logged() {
+  return Api.init({
+    url,
+    pathname: p.logged,
+  });
+}
+

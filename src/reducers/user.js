@@ -36,9 +36,15 @@ export default function data(state = {
       return { ...state, loading: true };
     case c.USER_SIGN: {
       if (action.payload.status === 'success') {
-        return { ...state, login: state.login, logged: true, loading: false };
+        return { ...state, logged: true, loading: false };
       }
       return { ...state, logged: false, loading: false };
+    }
+    case c.LOGOUT: {
+      return { ...state, logged: action.payload.logged };
+    }
+    case c.LOGGED: {
+      return { ...state, logged: action.payload.logged };
     }
     default:
       return state;

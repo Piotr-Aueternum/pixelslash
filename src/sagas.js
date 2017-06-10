@@ -20,9 +20,21 @@ export function* userSign(action) {
   yield put(a.userSign(payload));
 }
 
+export function* logout() {
+  const payload = yield call(s.logout);
+  yield put(a.logout(payload));
+}
+
+export function* logged() {
+  const payload = yield call(s.logged);
+  yield put(a.logged(payload));
+}
+
 function* watcher(action) {
   yield takeEvery(c.FETCH_ASYNC_STATS, fetchStats, action);
   yield takeEvery(c.USER_ASYNC_SIGN, userSign);
+  yield takeEvery(c.ASYNC_LOGOUT, logout);
+  yield takeEvery(c.ASYNC_LOGGED, logged);
 }
 
 export default function* rootSaga() {

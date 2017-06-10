@@ -6,3 +6,7 @@ export const USER_SIGN = Symbol('USER_SIGN');
 export const USER_LOGGED_IN = Symbol('USER_LOGGED_IN');
 export const UPDATE_DATA = Symbol('UPDATE_DATA');
 export const SIGN_REQUEST = Symbol('SIGN_REQUEST');
+export const LOGOUT = Symbol('LOGOUT');
+export const ASYNC_LOGOUT = Symbol('ASYNC_LOGOUT');
+export const LOGGED = Symbol('LOGGED');
+export const ASYNC_LOGGED = Symbol('ASYNC_LOGGED');
