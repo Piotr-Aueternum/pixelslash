@@ -16,10 +16,18 @@ export function requestAttack() {
   });
 }
 
-export function postUserData(query) {
+export function postRegisterData(query) {
   return Api.init({
     url,
     pathname: p.register,
+    query,
+  });
+}
+
+export function postLoginData(query) {
+  return Api.init({
+    url,
+    pathname: p.login,
     query,
   });
 }

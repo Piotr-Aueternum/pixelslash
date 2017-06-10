@@ -1,11 +1,11 @@
 import * as c from '../constans/actions';
 
 const inputs = [{
-  name: 'user', value: '', required: 'required',
+  name: 'user', value: '', required: 'required', minLength: '3', 'data-attached': ['login', 'register'],
 }, {
-  name: 'password', value: '', type: 'password', required: 'required',
+  name: 'password', value: '', type: 'password', required: 'required', minLength: '4', 'data-attached': ['login', 'register'],
 }, {
-  name: 'password_2', value: '', type: 'password', required: 'required',
+  name: 'password_2', value: '', type: 'password', required: 'required', minLength: '4', 'data-attached': ['register'],
 }];
 /**
  * Returns new array with changed input value, based on inputs name.
@@ -26,16 +26,19 @@ const setInputValue = (arr, action) => {
 export default function data(state = {
   inputs,
   logged: false,
+  loading: false,
 }, action) {
   switch (action.type) {
     case c.UPDATE_DATA: {
       return { ...state, inputs: setInputValue(state.inputs, action) };
     }
-    case c.USER_REGISTER: {
+    case c.SIGN_REQUEST:
+      return { ...state, loading: true };
+    case c.USER_SIGN: {
       if (action.payload.status === 'success') {
-        return { login: state.login, logged: true };
+        return { ...state, login: state.login, logged: true, loading: false };
       }
-      return { ...state, logged: false };
+      return { ...state, logged: false, loading: false };
     }
     default:
       return state;
