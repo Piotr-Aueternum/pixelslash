@@ -2,7 +2,6 @@
 	session_start();
 	include("../config.php");
 	$user = mysqli_real_escape_string($a, $_GET['user']);
-	
 	$status = 'error';
 	$message = 'No data was received. Please ensure you fill all inputs correctly.';
 
@@ -16,7 +15,7 @@
 			mysqli_query($a, "update users set token='$token' WHERE user='$user'");
 
 			$_SESSION['user_logged'] = true;
-			$_SESSION['login'] = $_POST['user'];
+			$_SESSION['user'] = $user;
 			$_SESSION['token'] = $token;
 	
 			$status = 'success';
@@ -30,4 +29,5 @@
 		$message = "User with login $user does not exists.";
 	}
 	echo json_encode(array('status' => $status, 'message' => $message));
+	exit();
 ?>

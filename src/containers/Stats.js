@@ -4,7 +4,5 @@ import { fetchAsyncStats } from '../actions/stats';
 
 
 const mapStateToProps = state => ({ ...state.stats });
-const mapDispatchToProps = dispatch => ({ onMount: () => {
-  dispatch(fetchAsyncStats());
-} });
+const mapDispatchToProps = dispatch => ({ onMount: () => dispatch(fetchAsyncStats()) });
 export default connect(mapStateToProps, mapDispatchToProps)(Stats);

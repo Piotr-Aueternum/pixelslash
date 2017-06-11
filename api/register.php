@@ -20,7 +20,7 @@
 					mysqli_query($a,"insert into users (user,password) values ('$user','$password')");
 					
 					$_SESSION['user_logged'] = true;
-					$_SESSION['login'] = $_POST['user'];
+					$_SESSION['user'] = $_POST['user'];
 
 					$status = 'success';
 					$message = 'Account created correctly.';
@@ -38,4 +38,5 @@
 		$message = "Login name length($userlength) is too short, it should be greater than 2.";
 	}
 	echo json_encode(array('status' => $status, 'message' => $message));
+	exit();
 ?>

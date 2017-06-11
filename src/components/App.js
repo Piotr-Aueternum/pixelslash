@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
 import LoginForm from './Login-form';
 import RegisterForm from './Register-form';
 import NotFound from './Not-found';
@@ -7,16 +7,15 @@ import Dashboard from './Dashboard';
 
 export default () => (
   <div>
-    <Route strict exact path="/">
-      <ul>
-        <li>
-          <Link to="/register">Rejestracja</Link>
-        </li>
-        <li>
-          <Link to="/">Logowanie</Link>
-        </li>
-      </ul>
-    </Route>
+    <style>{`
+      .active {
+        color: red;
+      }  
+    `}</style>
+    <ul>
+      <li><NavLink activeClassName="active" to="/register">Rejestracja</NavLink></li>
+      <li><NavLink exact activeClassName="active" to="/">Logowanie</NavLink></li>
+    </ul>
     <Switch>
       <Route exact path="/" component={LoginForm} />
       <Route path="/dashboard" component={Dashboard} />
