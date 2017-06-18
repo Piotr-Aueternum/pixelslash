@@ -1,4 +1,4 @@
-export const url = process.env.URL;
+export const url = process.env.NODE_ENV === 'production' ? 'http://pixelslash.xaa.pl/' : process.env.URL;
 export const path = process.env.NODE_ENV === 'production' ? 'new/' : 'pixelslash/';
 export const getStats = `${path}api/stats.php`;
 export const attack = `${path}api/attack.php`;
