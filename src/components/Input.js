@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 export default class extends React.Component {
   static propTypes = {
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired,
   }
   static defaultProps = {
     type: 'text',
@@ -13,8 +12,11 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      value: this.props.value,
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ value: nextProps.value });
   }
   handleChange(e) {
     this.props.onChange(e);
@@ -24,9 +26,6 @@ export default class extends React.Component {
     return (
       <input
         onChange={e => this.handleChange(e)}
-        name={this.props.name}
-        type={this.props.type}
-        value={this.state.value}
         {...this.props}
       />
     );

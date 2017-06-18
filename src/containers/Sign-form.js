@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
-import { userAsyncSign, updateUserData, signRequest } from '../actions/user';
+import { userAsyncSign, signRequest } from '../actions/user';
 import Form from '../components/Form';
 
 const mapStateToProps = (state, ownProps) => {
-  const data = [...state.user.inputs];
-  const filtered = data.filter((input) => {
+  const inputs = [...state.user.inputs];
+  const filtered = inputs.filter((input) => {
     const array = [...input['data-attached']];
     return Boolean(array.filter(item => item === ownProps.type).length);
   });
-  return ({ loading: state.user.loading, data: filtered, logged: state.user.logged });
+  return ({ loading: state.user.loading, inputs: filtered, logged: state.user.logged });
 };
 
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onFormSubmit: (e, data) => {
+  onSubmit: (e, data) => {
     e.preventDefault();
     const query = {};
     data.forEach((item) => {
@@ -21,10 +21,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     });
     dispatch(signRequest());
     dispatch(userAsyncSign({ query, type: ownProps.type }));
-  },
-  onInputChange: (e) => {
-    const { value, name } = e.target;
-    dispatch(updateUserData({ value, name }));
   },
 });
 

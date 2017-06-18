@@ -36,6 +36,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
+        URL: `"${process.env.LAN ? process.env.LAN : 'localhost'}"`,
         NODE_ENV: '"development"',
       },
     }),
