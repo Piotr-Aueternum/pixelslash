@@ -1,10 +1,12 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
-import * as s from './services';
+import services from './services';
 import * as c from './constans/actions';
 import a from './actions';
 
+const { user, stats } = services;
+
 export function* fetchStats() {
-  const payload = yield call(s.getStats);
+  const payload = yield call(stats.getStats);
   yield put(a.fetchStats(payload));
 }
 
@@ -12,21 +14,21 @@ export function* userSign(action) {
   const { type, query } = action.payload;
   let payload;
   if (type === 'register') {
-    payload = yield call(s.postRegisterData, query);
+    payload = yield call(user.postRegisterData, query);
   }
   if (type === 'login') {
-    payload = yield call(s.postLoginData, query);
+    payload = yield call(user.postLoginData, query);
   }
   yield put(a.userSign(payload));
 }
 
 export function* logout() {
-  const payload = yield call(s.logout);
+  const payload = yield call(user.logout);
   yield put(a.logout(payload));
 }
 
 export function* logged() {
-  const payload = yield call(s.logged);
+  const payload = yield call(user.logged);
   yield put(a.logged(payload));
 }
 

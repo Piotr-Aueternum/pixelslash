@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+require('dotenv').config();
 
 module.exports = {
   entry: ['babel-polyfill', path.join(__dirname, 'src', 'index.js')],
@@ -28,9 +29,9 @@ module.exports = {
     extensions: ['.js'],
   },
   devServer: {
-    hot: true,
     contentBase: 'src/static',
     historyApiFallback: true,
+    host: process.env.LAN ? process.env.LAN : 'localhost',
   },
   plugins: [
     new webpack.DefinePlugin({
