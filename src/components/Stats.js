@@ -64,13 +64,34 @@ export default class extends React.Component {
           ATK:{this.props.atk} DEF:{this.props.def}
         </div>
         <div>
-          <ProgressBar type="health" progress={100}>
+          <ProgressBar
+            progress={100}
+            theme={{
+              background: '#b73535',
+              gloss: '#f19b9c',
+              border: '#d03e3e',
+            }}
+          >
             HEALTH:{this.props.hp}
           </ProgressBar>
-          <ProgressBar type="energy" progress={(this.props.energy / this.props.maxenergy) * 100}>
+          <ProgressBar
+            progress={(this.props.energy / this.props.maxenergy) * 100}
+            theme={{
+              background: '#8b479a',
+              gloss: '#dab9d4',
+              border: '#a76bab',
+            }}
+          >
             ENERGY:{this.props.energy}/{this.props.maxenergy}({this.props.time})
           </ProgressBar>
-          <ProgressBar type="exp" progress={(this.props.exp / this.props.maxexp) * 100}>
+          <ProgressBar
+            progress={(this.props.exp / this.props.maxexp) * 100}
+            theme={{
+              background: '#76b13b',
+              gloss: '#beda85',
+              border: '#92c858',
+            }}
+          >
             EXP:{this.props.exp}/{this.props.maxexp}
           </ProgressBar>
         </div>

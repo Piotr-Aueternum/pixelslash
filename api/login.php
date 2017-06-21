@@ -1,6 +1,7 @@
 <?php
 	session_start();
-	include("../config.php");
+	include "../config.php";
+	include "./header.php";
 	$user = mysqli_real_escape_string($a, $_GET['user']);
 	$status = 'error';
 	$message = 'No data was received. Please ensure you fill all inputs correctly.';

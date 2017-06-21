@@ -1,26 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Resources from './Resources';
-import styles from './Resources-bar.scss';
 
-const ResourcesBar = ({ resources }) => {
-  if (!(resources && resources.length)) {
+const ResourcesBar = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+  padding: 5px;
+`;
+
+const ResourcesBarComponent = ({ data }) => {
+  if (data.length < 1) {
     return (<div>No resources</div>);
   }
   return (
-    <div className={styles.ResourcesBar}>
-      {resources.map((item, key) => (
+    <ResourcesBar>
+      {data.map((item, key) => (
         <Resources
           key={key}
           {...item}
         />
       ))}
-    </div>
+    </ResourcesBar>
   );
 };
 
-ResourcesBar.propTypes = {
-  resources: PropTypes.arrayOf(PropTypes.object).isRequired,
+ResourcesBarComponent.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default ResourcesBar;
+export default ResourcesBarComponent;

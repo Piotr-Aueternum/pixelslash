@@ -1,24 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Resources.scss';
+import styled from 'styled-components';
 
-const Resource = ({ value, alt, src, size }) => (
-  <div className={styles.Resources}>
+const Resources = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
+const Icon = styled.img`
+  display: block;
+  margin-left: 5px;
+  ${(props) => {
+    switch (props.type) {
+      case 'medium':
+        return `
+          height: 32px;
+          width: 32px;
+        `;
+      case 'large':
+        return `
+          height: 48px;
+          width: 48px;
+        `;
+      case 'normal':
+        return `
+          height: 19px;
+          width: 19px;
+        `;
+      default:
+        return `
+          height: 16px;
+          width: 16px;
+        `;
+    }
+  }}
+`;
+
+
+const ResourcesComponent = ({ value, alt, src, size }) => (
+  <Resources>
     <div>{value}</div>
-    <img alt={alt} src={src} className={`${styles.icon} ${styles[`icon_${size}`]}`} />
-  </div>
+    <Icon alt={alt} src={src} type={size} />
+  </Resources>
 );
 
-Resource.defaultProps = {
-  size: 'normal',
+ResourcesComponent.defaultProps = {
+  size: '',
   alt: '',
   value: 0,
 };
-Resource.propTypes = {
+ResourcesComponent.propTypes = {
   value: PropTypes.number,
   alt: PropTypes.string,
   src: PropTypes.string.isRequired,
   size: PropTypes.string,
 };
 
-export default Resource;
+export default ResourcesComponent;
