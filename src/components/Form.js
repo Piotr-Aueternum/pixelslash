@@ -42,11 +42,12 @@ export default class extends React.Component {
     return (
       <form onSubmit={e => this.onSubmit(e)}>
         {inputs.map((input, key) => (
-          <Input
-            onChange={e => this.onInputChange(e)}
-            key={key}
-            {...input}
-          />
+          <div key={key}>
+            <Input
+              onChange={e => this.onInputChange(e)}
+              {...input}
+            />
+          </div>
         ))}
         <button>Submit</button>
       </form>
