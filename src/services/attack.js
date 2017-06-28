@@ -2,9 +2,13 @@ import * as p from '../constans/pixelslash';
 import Api from '../api_client';
 
 const url = p.url;
-export default function requestAttack() {
-  return Api.init({
-    url,
-    pathname: p.attack,
-  });
-}
+export const attack = () => Api.init({
+  url,
+  pathname: p.attack,
+});
+
+export const attackRequest = query => Api.init({
+  url,
+  pathname: p.attackRequest,
+  query,
+});

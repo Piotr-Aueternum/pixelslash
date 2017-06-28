@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ResourcesBar from '../containers/Resources-bar';
 import Stats from '../containers/Stats';
 import Logout from '../containers/Logout';
-import Arena from './Arena';
+import Arena from '../containers/Arena';
 
 const Dashboard = ({ match }) => {
   const arena = `${match.path}/arena`;
@@ -42,7 +42,9 @@ const Dashboard = ({ match }) => {
 };
 
 Dashboard.propTypes = {
-  match: PropTypes.objectOf(PropTypes.string).isRequired,
+  match: PropTypes.shape({
+    path: PropTypes.string,
+  }).isRequired,
 };
 
 export default Dashboard;

@@ -3,40 +3,30 @@ import Api from '../api_client';
 
 const url = p.url;
 
-export function postRegisterData(query) {
-  return Api.init({
-    url,
-    pathname: p.register,
-    query,
-  });
-}
+export const postRegisterData = query => Api.init({
+  url,
+  pathname: p.register,
+  query,
+});
 
-export function postLoginData(query) {
-  return Api.init({
-    url,
-    pathname: p.login,
-    query,
-  });
-}
+export const postLoginData = query => Api.init({
+  url,
+  pathname: p.login,
+  query,
+});
 
-export function getUserData() {
-  return Api.init({
-    url,
-    pathname: p.login,
-  });
-}
+export const getUserData = () => Api.init({
+  url,
+  pathname: p.login,
+});
 
-export function logout() {
-  return Api.init({
-    url,
-    pathname: p.logout,
-  });
-}
+export const logout = () => Api.init({
+  url,
+  pathname: p.logout,
+});
 
-export function logged() {
-  return Api.init({
-    url,
-    pathname: p.logged,
-  });
-}
+export const logged = () => Api.init({
+  url,
+  pathname: p.logged,
+});
 

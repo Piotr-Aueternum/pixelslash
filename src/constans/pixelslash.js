@@ -2,6 +2,8 @@ export const url = process.env.NODE_ENV === 'production' ? 'http://192.168.0.100
 export const path = process.env.NODE_ENV === 'production' ? '/' : '/';
 export const getStats = `${path}api/stats.php`;
 export const attack = `${path}api/attack.php`;
+export const attackRequest = `${path}api/attack_request.php`;
+export const oponnentsList = `${path}api/oponnents_list.php`;
 export const register = `${path}api/register.php`;
 export const login = `${path}api/login.php`;
 export const logout = `${path}api/logout.php`;
