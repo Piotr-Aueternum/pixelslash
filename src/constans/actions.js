@@ -1,5 +1,7 @@
 export const FETCH_ASYNC_STATS = Symbol('FETCH_ASYNC_STATS');
 export const FETCH_STATS = Symbol('FETCH_STATS');
+export const FETCH_ASYNC_ARENA = Symbol('FETCH_ASYNC_ARENA');
+export const FETCH_ARENA = Symbol('FETCH_ARENA');
 export const FETCH_RESOURCES = Symbol('FETCH_RESOURCES');
 export const USER_ASYNC_SIGN = Symbol('USER_ASYNC_SIGN');
 export const USER_SIGN = Symbol('USER_SIGN');
@@ -10,3 +12,7 @@ export const LOGOUT = Symbol('LOGOUT');
 export const ASYNC_LOGOUT = Symbol('ASYNC_LOGOUT');
 export const LOGGED = Symbol('LOGGED');
 export const ASYNC_LOGGED = Symbol('ASYNC_LOGGED');
+export const ATTACK_REQUEST = Symbol('ATTACK_REQUEST');
+export const ATTACK_ASYNC_REQUEST = Symbol('ATTACK_ASYNC_REQUEST');
+export const ATTACK = Symbol('ATTACK');
+export const ATTACK_ASYNC = Symbol('ATTACK_ASYNC');

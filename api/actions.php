@@ -9,7 +9,7 @@
 	$query = mysqli_query($a,"select * from items where id='$item_id'");
 	$item_info = mysqli_fetch_array($query);
 
-	$percent_of_real_price_in_shop = 0.25; // Set selling price of items according to the prices in shop
+	$tax = 0.25; // Set selling price of items according to the prices in shop
 
 	// Users information
 	$user_login = $_SESSION['login'];
@@ -72,7 +72,7 @@
 			$message = "Item bought successfully";
 			break;
 		case "sell":
-			$item_price = $item_info['price']*$percent_of_real_price_in_shop;
+			$item_price = $item_info['price'] * $tax;
 			unset($player_equipment[$item_index_in_player_eq]);
 			$updated_player_equipment = implode(";",$player_equipment);
 			mysqli_query($a, "UPDATE `p505207_db`.`users` SET `eq`='$updated_player_equipment',`silver_coins`=`silver_coins`+'$item_price' WHERE `users`.`user`='$user_login' ");
