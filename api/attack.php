@@ -2,10 +2,10 @@
 	session_start();
 	include("../config.php");
 
-	$user = $_SESSION['login'];
+	$user = $_SESSION['user'];
 
-	$opponent_name = "admin";//$_SESSION["oponnent_name"];
-	$isMonster = false;//$_SESSION["isMonster"];
+	$opponent_name = $_SESSION["oponnent_name"];
+	$isMonster = $_SESSION["isMonster"];
 
 	$query = mysqli_query($a,"select * from users where user='$user'");
 	$user_data = mysqli_fetch_array($query);
@@ -99,7 +99,7 @@
 	$_SESSION['attack_end'] = true; // attack_request.php Changes this to false
 
 	echo json_encode($arr);
-
+	exit();
 	/*
 
 		{
