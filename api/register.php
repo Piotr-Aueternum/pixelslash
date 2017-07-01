@@ -9,6 +9,7 @@
 	$passlength = strlen($password);
 	$userlength = strlen($user);
 	$query = mysqli_query($a, "select * from users where user='$user'");
+
 	if (strlen($user) >= 3) {
 		if (mysqli_num_rows($query) > 0){
 			$status = 'error';

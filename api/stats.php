@@ -1,11 +1,12 @@
 <?php
 	session_start();
 	include "./header.php";
-	include("../config.php");
+	include "../config.php";
 
 	function get_max_exp($_user_lvl){ // Calculating maximum exp per lvl
 		return floor(pow(1.5,$_user_lvl)*400);
 	}
+
 	$user_login = $_SESSION['user'];
 	$query = mysqli_query($a, "select * from `users` where user='$user_login'");
 	$user_data = mysqli_fetch_array($query);
