@@ -11,16 +11,14 @@
 
 			$is_monster = json_decode($_GET['is_monster']);
 			$opponent_name = $_GET['opponent_name'];
-
-			$_SESSION["is_monster"] = $is_monster;
-			$_SESSION["opponent_name"] = $opponent_name;
-			$_SESSION['attack_continue'] = true; // See attack.php
 			if($is_monster) {
 				$query = mysqli_query($a, "SELECT * FROM `monsters` WHERE user='$opponent_name'");
 			} else {
 				$query = mysqli_query($a, "SELECT * FROM `users` WHERE user='$opponent_name'");
 			}
 			if(mysqli_num_rows($query) > 0) {
+				$_SESSION["is_monster"] = $is_monster;
+				$_SESSION["opponent_name"] = $opponent_name;
 				$status = 'success';		
 				$message = "Attack request accepted";
 			} else {

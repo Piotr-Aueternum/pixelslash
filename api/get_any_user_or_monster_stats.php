@@ -3,17 +3,17 @@
 	session_start();
 	include("../config.php");
 
-	$user_login = $_GET['login'];// <------------ GET USER LOGIN TO CHECK STATS
-	$isMonster = $_GET['isMonster'];
+	$user = $_GET['user'];// <------------ GET USER LOGIN TO CHECK STATS
+	$is_monster = $_GET['is_monster'];
 
 	function get_max_exp($_user_lvl){ // Calculating maximum exp per lvl
 		return floor(pow(1.5,$_user_lvl)*400);
 	}
 
-	if($isMonster){
-		$query = mysqli_query($a, "select * from `monsters` where name='$user_login'");
+	if($is_monster){
+		$query = mysqli_query($a, "select * from `monsters` where name='$user'");
 	}else{
-		$query = mysqli_query($a, "select * from `users` where user='$user_login'");
+		$query = mysqli_query($a, "select * from `users` where user='$user'");
 	}
 	
 	$user_data = mysqli_fetch_array($query);

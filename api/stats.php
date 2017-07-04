@@ -7,8 +7,8 @@
 		return floor(pow(1.5,$_user_lvl)*400);
 	}
 
-	$user_login = $_SESSION['user'];
-	$query = mysqli_query($a, "select * from `users` where user='$user_login'");
+	$user = $_SESSION['user'];
+	$query = mysqli_query($a, "SELECT * FROM `users` WHERE user='$user'");
 	$user_data = mysqli_fetch_array($query);
 	$user_lvl = $user_data['lvl'];
 	$max_exp = get_max_exp($user_lvl);
@@ -28,18 +28,18 @@
 	if($user_data['exp'] > $max_exp){
 		$won_sc = ($user_lvl+1)*500;
 		$won_gc = 5;
-		mysqli_query($a, "UPDATE `p505207_db`.`users` SET `lvl`=`lvl`+1,`exp`=0,`silver_coins`=`silver_coins`+'$won_sc',`golden_coins`=`golden_coins`+'$won_gc' WHERE `users`.`user`='$user_login'"); 
+		mysqli_query($a, "UPDATE `p505207_db`.`users` SET `lvl`=`lvl`+1,`exp`=0,`silver_coins`=`silver_coins`+'$won_sc',`golden_coins`=`golden_coins`+'$won_gc' WHERE `users`.`user`='$user'"); 
 		echo mysqli_error($mysqli);
 	}
 
-	$query = mysqli_query($a, "select * from `users` where user='$user_login'");
+	$query = mysqli_query($a, "SELECT * FROM `users` WHERE user='$user'");
 	$user_data = mysqli_fetch_array($query);
 	$max_exp = get_max_exp($user_lvl);
 
 	$player_weared_equipment = explode(";", $user_data["eq_weared"]);
 
 	for($i=0;$i<count($player_weared_equipment);$i++){	
-		$query = mysqli_query($a,"select * from `items` where `id`='$player_weared_equipment[$i]' ");
+		$query = mysqli_query($a,"SELECT * FROM `items` WHERE `id`='$player_weared_equipment[$i]' ");
 		$item_data = mysqli_fetch_array($query);
 
 		$eq_atk += $item_data['atk'];

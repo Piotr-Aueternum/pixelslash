@@ -1,137 +1,112 @@
 <?php
 	session_start();
-	include("../config.php");
+	include '../config.php'; // $a
+	include'../utils/player_data.php'; // sumEquipment(), sumStats(), randStats()
+	
 	$user = $_SESSION['user'];
+	if($user) {
+		// if($_SESSION['attack_continue']) {
+		// } else {
+		// 	$status = "error";
+		// 	$message = "You aren't allowed to attack";
+		// }
+		$query = mysqli_query($a,"SELECT * FROM users WHERE user='$user'");
+		$user_data = mysqli_fetch_array($query);
+		if($user_data['energy'] > 0) {
 
-	$opponent_name = $_SESSION["oponnent_name"];
-	$query = mysqli_query($a,"select * from users where user='$user'");
-	$user_data = mysqli_fetch_array($query);
+			$opponent_name = $_SESSION["opponent_name"];
+			if($opponent_name) {
 
-	if($_SESSION['attack_continue']){
-		if($user_data['energy'] > 0){
-			if($opponent_name != null){
-				/*
-					USER AND OPPONENT DATA
-				*/
+				$sumStats = sumEquipment($user_data['eq_weared']);
+
+				$stats_type = array('atk', 'def', 'hp');
+				$user_stats = sumStats($sumStats, $user_data, $stats_type);
+				$rand_stats = array('atk', 'def');
+				$user_stats = randStats($user_stats, $rand_stats);
 				$is_monster = $_SESSION["is_monster"];
-
-				$player_weared_equipment = explode(";", $user_data["eq_weared"]);
-
-				for($i=0;$i<count($player_weared_equipment);$i++){	
-					$query = mysqli_query($a,"select * from `items` where `id`='$player_weared_equipment[$i]' ");
-					$item_data = mysqli_fetch_array($query);
-
-					$eq_atk += $item_data['atk'];
-					$eq_def += $item_data['def'];
-					$eq_hp += $item_data['hp'];
-				}
-				$user_atk = $eq_atk+$user_data['atk'];
-				$user_def = $eq_def+$user_data['def'];
-
-				$user_attack_power = rand($user_atk,$user_atk*1.2);
-				$user_defense_power = rand($user_def,$user_def*1.2);
-				$user_hp = $user_data['hp']+$eq_hp;
-
-				$eq_atk=0;$eq_def=0;$eq_hp=0;
-				if($is_monster){
-					$query = mysqli_query($a,"select * from monsters where name='$opponent_name'");
+				if($is_monster) {
+					$query = mysqli_query($a, "SELECT * FROM monsters WHERE name='$opponent_name'");
 					$opponent_data = mysqli_fetch_array($query);
-
-					$opponent_atk = $opponent_data['atk'];
-					$opponent_def = $opponent_data['def'];
-					$opponent_hp  = $opponent_data['hp'];
-				}else{
-					$query = mysqli_query($a,"select * from users where user='$opponent_name'");
+					$stats_type = array('atk', 'def', 'hp');
+					$opponent_stats = sumStats($opponent_data, null, $stats_type);
+				} else {
+					$query = mysqli_query($a, "SELECT * FROM users WHERE user='$opponent_name'");
 					$opponent_data = mysqli_fetch_array($query);
+					$sumStats = sumEquipment($opponent_data['eq_weared']);
 
-					$opponent_weared_equipment = explode(";", $user_data["eq_weared"]);
 
-					for($i=0;$i<count($player_weared_equipment);$i++){	
-						$query = mysqli_query($a,"select * from `items` where `id`='$opponent_weared_equipment[$i]' ");
-						$item_data = mysqli_fetch_array($query);
-
-						$eq_atk += $item_data['atk'];
-						$eq_def += $item_data['def'];
-						$eq_hp += $item_data['hp'];
-					}
-					$opponent_atk = $eq_atk+$opponent_data['atk'];
-					$opponent_def = $eq_def+$opponent_data['def'];
-					$opponent_hp  = $eq_hp+$opponent_data['hp'];
+					$stats_type = array('atk', 'def', 'hp');
+					$opponent_stats = sumStats($sumStats, $opponent_data, $stats_type);
+					$rand_stats = array('atk', 'def');
+					$opponent_stats = randStats($opponent_stats, $rand_stats);
 				}
 
-				$opponent_attack_power = rand($opponent_atk,$opponent_atk*1.2);
-				$opponent_defense_power = rand($opponent_def,$opponent_def*1.2);
+				$rand_stats = array('atk', 'def');
+				$opponent_stats = randStats($opponent_stats, $rand_stats);
 				$opponent_lvl = $opponent_data['lvl'];
 
-				$reward = 10*($opponent_lvl*0.2*$opponent_lvl*0.2);
-				$exp_reward = pow(2,$opponent_lvl+$opponent_atk/10);
-
-				if($_SESSION['opponent_hp'] != null && $_SESSION['user_hp'] != null){
-					$opponent_hp = $_SESSION['opponent_hp'];
-					$user_hp = $_SESSION['user_hp'];
-				}else{
+				if($_SESSION['opponent_hp'] && $_SESSION['user_hp']){
 					$_SESSION['opponent_hp'] = $opponent_hp;
 					$_SESSION['user_hp'] = $user_hp;
-				}
-				/*
-					END USER AND opponent DATA
-				*/
-				
-				// User attacks first
-				if($user_attack_power>0){
-					$_SESSION['opponent_hp'] -= $user_attack_power;
-				}
-				// Then opponent
-				if($opponent_attack_power>0){
-					$_SESSION['user_hp'] -= $opponent_attack_power;
-				}
-				if($_SESSION['opponent_hp']<1){ // WIN
-					include('chest_win.php');
-					mysqli_query($a, "UPDATE `p505207_db`.`users` SET `silver_coins`=`silver_coins`+'$reward',`exp`=`exp`+'$exp_reward' WHERE `users`.`user`='$user'"); // SAVE REWARD
-					$status = "WIN";	
-					$chest = $won_chest_rarity;
-					$_SESSION['user_hp'] = null;
-					$_SESSION['opponent_hp'] = null;
-					$_SESSION['attack_continue'] = false; // attack_request.php Changes this to false
-				}
-				if($_SESSION['user_hp']<1){ // LOSE
-					$status = "LOST";
-					$_SESSION['user_hp'] = null;
-					$_SESSION['opponent_hp'] = null;
-					$_SESSION['attack_continue'] = false; // attack_request.php Changes this to false
+				} else {
+					$opponent_hp = $_SESSION['opponent_hp'];
+					$user_hp = $_SESSION['user_hp'];
 				}
 
-				if($chest == null){
+				if($user_attack_power > 0) {
+					$_SESSION['opponent_hp'] -= $user_stats['atk_rand'];
+				}
+				if($opponent_attack_power > 0){
+					$_SESSION['user_hp'] -= $opponent_stats['atk_rand'];
+				}
+
+				if($_SESSION['user_hp'] < 1) {
+					$status = "success";
+					$message = "Lose.";
+					// $_SESSION['user_hp'] = null;
+					// $_SESSION['opponent_hp'] = null;
+					// $_SESSION['attack_continue'] = null;
+				}
+
+				if($_SESSION['opponent_hp'] < 1) {
+					$reward = 10 * pow($opponent_lvl * 0.2);
+					$exp_reward = pow(2, $opponent_lvl + $opponent_atk / 10);
+					include 'chest_win.php';
+					mysqli_query($a, "UPDATE `p505207_db`.`users` SET `silver_coins`=`silver_coins`+'$reward',`exp`=`exp`+'$exp_reward' WHERE `users`.`user`='$user'"); // SAVE REWARD
+					$status = "success";	
+					$message = 'Win.';
+					$chest = $won_chest_rarity;
+					// $_SESSION['user_hp'] = null;
+					// $_SESSION['opponent_hp'] = null;
+					// $_SESSION['attack_continue'] = null;
+				}
+
+				if($chest === null){
 					$chest = "none";
 				}
 
-			}else{
-				$status = "ERROR";
-				$message = "Unselected opponent";	
-				$_SESSION['attack_continue'] = false;			
+			} else {
+				$status = "error";
+				$message = "Select your opponent on arena.";	
+				$_SESSION['attack_continue'] = null;			
 			}
-		}else{
-			$status = "ERROR";
+		} else {
+			$status = "error";
 			$message = "You don't have enough energy to attack";	
-			$_SESSION['attack_continue'] = false;		
+			$_SESSION['attack_continue'] = null;		
 		}
-	}else{
-		$status = "ERROR";
-		$message = "You aren't allowed to attack";
-		$_SESSION['attack_continue'] = false;
 	}
 
 	$arr = array(
+		'status' => $status,
+		'message' => $message,
 		'user_hp' => $_SESSION['user_hp'],
 		'opponent_hp' => $_SESSION['opponent_hp'], 
-		'status' => $status, 
 		'won_silver_coins' => $reward, 
-		'chest' => $chest,
-		'message' => $message
+		'chest' => $chest
 	);
 
 	echo json_encode($arr);
-<<<<<<< HEAD
 	exit();
 	/*
 
@@ -145,8 +120,5 @@
 		}
 
 	*/
-=======
-
->>>>>>> e9ff7d86b20cb1d2b156a54fee4103413479f30a
 ?>
 
